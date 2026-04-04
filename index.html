@@ -583,9 +583,10 @@ let currentTool = null;
             style: {
               color: "red",
               weight: 1,
-              fillOpacity: 0.03   // ★ 0にしない（スマホ対策）
+              fillOpacity: 0.1   // ★ 0にしない（スマホ対策）0.03 kara 0.1
             },
 
+            interactive: true,   // ★これを追加
             onEachFeature: (f, l) => {
 
               const content =
