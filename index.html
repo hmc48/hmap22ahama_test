@@ -3053,10 +3053,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
                 }
             });
         }
-
         if (bounds.length > 0) {
-            // 見つかったすべてのマーカーが収まるように地図をズーム・移動　
-            map.fitBounds(L.latLngBounds(bounds), { padding: [50, 50] });
+            const center = L.latLngBounds(bounds).getCenter();
+            map.panTo(center);  // ズームは変わらず、移動のみ
             document.getElementById('search-panel').style.display = 'none'; // パネルを閉じる
         } else {
             alert("該当する施設が見つかりません。");
