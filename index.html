@@ -268,7 +268,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         _updatePath: function () {
             const ctx = this._renderer._ctx;
             const p = this._point;
-            const r = this._radius;
+            const r = this._radius * 1.5;
             const s = this.options.shape;
             if (!this._renderer._drawing || this._empty()) return;
 
