@@ -31,20 +31,21 @@ body { margin:0; padding:0; overflow:hidden; font-family: sans-serif; }
   background: rgba(255, 255, 255, 0.8); padding: 5px 10px;
   border: 1px solid #ccc; border-radius: 4px; font-weight: bold; font-size: 14px; pointer-events: none;
 }
+/* ボタンサイズ */
 .circle-btn {
-  width:48px; height:48px; border-radius:50%; text-align:center; line-height:48px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.3); cursor:pointer; font-size:24px; z-index:2000;
+  width:36px; height:36px; border-radius:50%; text-align:center; line-height:36px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.3); cursor:pointer; font-size:18px; z-index:2000;
   position:fixed; background:white;
 }
 #control-btn { top:15px; right:15px; background:#007bff; color:white; }
-#search-btn { top:75px; right:15px; background:#28a745; color:white; }
-#info-btn { top:135px; right:15px; background:#ff69b4; color:white; }
-#jump-btn { top:195px; right:15px; background:#ff9800; color:white; }
+#search-btn { top:55px; right:15px; background:#28a745; color:white; }
+#info-btn { top:95px; right:15px; background:#ff69b4; color:white; }
+#jump-btn { top:135px; right:15px; background:#ff9800; color:white; }
 /* 追加：経路探索ボタンとパネル */
-#route-btn { top:255px; right:15px; background:#673ab7; color:white; }
-#reload-btn { top:315px; right:15px; background:#6c757d; color:white; }
+#route-btn { top:175px; right:15px; background:#673ab7; color:white; }
+#reload-btn { top:215px; right:15px; background:#6c757d; color:white; }
 #route-panel {
-  display:none; position:fixed; top:255px; right:75px; 
+  display:none; position:fixed; top:45px; right:75px; 
   background:white; padding:15px; border-radius:8px; z-index:4000;
   box-shadow:0 4px 15px rgba(0,0,0,0.2); width:200px;
 }
@@ -54,8 +55,8 @@ body { margin:0; padding:0; overflow:hidden; font-family: sans-serif; }
   background:white; padding:15px; border-radius:8px; z-index:2000;
   max-height:75vh; overflow-y:auto; box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
-#controls { top:70px; }
-#search-panel { top:130px; }
+#controls { top:45px; right:65px; }
+#search-panel { top:45px; right:65px;}
 #info-panel { bottom:20px; left:20px; right:20px; width:auto; font-size:14px; z-index:3000; }
 .close-x { float: right; font-size: 30px; font-weight: bold; cursor: pointer; color: #888; }
 .section-title { font-weight:bold; margin-top:10px; border-bottom:1px solid #eee; }
@@ -93,9 +94,9 @@ input[type="checkbox"], input[type="radio"] { margin-right: 10px; transform: sca
 .btn-container { display: flex; gap: 5px; margin-bottom: 5px; }
 button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 .search-item:hover { background:#f0f0f0; cursor:pointer; }
-    /* ★追加 */
+    /* 図形描写追加 */
     .leaflet-top.leaflet-right {
-      margin-top: 360px;
+      margin-top: 255px;
     }
 
     /* 図形描画レイヤーをマーカーより下に配置 */
