@@ -134,64 +134,71 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
   <div id="control-btn" class="circle-btn" onclick="togglePanel('controls')">🛠️</div>
   <div id="controls">
     <span class="close-x" onclick="togglePanel('controls')">×</span>
-    <div class="section-title">一括操作</div>
+    <div class="section-title">境界線の一括操作</div>
     <div class="btn-container">
-      <button class="menu-sub-btn" id="selectAllBtn">全て選択</button>
-      <button class="menu-sub-btn" id="deselectAllBtn">全て解除</button>
+      <button class="menu-sub-btn" id="selectBoundariesBtn">全て選択</button>
+      <button class="menu-sub-btn" id="deselectBoundariesBtn">全て解除</button>
+    </div>
+    <div class="section-title">施設種類の一括操作</div>
+    <div class="btn-container">
+      <button class="menu-sub-btn" id="selectFacilitiesBtn">全て選択</button>
+      <button class="menu-sub-btn" id="deselectFacilitiesBtn">全て解除</button>
     </div>
     <div class="section-title">地図の種類</div>
     <label class="layer-item"><input type="radio" name="baseLayer" value="標準" checked> オープンストリートマップ</label>
     <label class="layer-item"><input type="radio" name="baseLayer" value="航空写真"> 航空写真(国土地理院)</label>
     <label class="layer-item"><input type="radio" name="baseLayer" value="国土地理院地図"> 国土地理院地図</label>
     <div class="section-title">境界線・施設種類</div>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界01"> 賀茂医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界02"> 熱海伊東医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界03"> 駿東田方医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界04"> 富士医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界05"> 静岡医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界06"> 志太榛原医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界07"> 中東遠医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="町丁目境界08"> 西部医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="病院"> 病院</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="診療所"> 診療所</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="歯科"> 歯科</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="助産院"> 助産院</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="薬局"> 薬局</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="訪問介護"> 訪問介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="訪問入浴介護"> 訪問入浴介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="訪問看護"> 訪問看護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="訪問リハビリテーション"> 訪問リハビリテーション</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="通所介護"> 通所介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="通所介護（療養通所介護）"> 通所介護（療養通所介護）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="通所リハビリテーション"> 通所リハビリテーション</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="福祉用具貸与"> 福祉用具貸与</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="短期入所生活介護"> 短期入所生活介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="短期入所療養介護（介護老人保健施設）"> 短期入所療養介護（介護老人保健施設）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="短期入所療養介護（療養病床を有する病院等）"> 短期入所療養介護（療養病床を有する病院等）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="短期入所療養介護（介護医療院）"> 短期入所療養介護（介護医療院）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="認知症対応型共同生活介護"> 認知症対応型共同生活介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="特定施設入居者生活介護（有料老人ホーム）"> 特定施設入居者生活介護（有料老人ホーム）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="特定施設入居者生活介護（軽費老人ホーム）"> 特定施設入居者生活介護（軽費老人ホーム）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="特定施設入居者生活介護（サービス付き高齢者向け住宅）"> 特定施設入居者生活介護（サービス付き高齢者向け住宅）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）"> 特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）"> 特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）"> 特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="地域密着型特定施設入居者生活介護（有料老人ホーム）"> 地域密着型特定施設入居者生活介護（有料老人ホーム）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="地域密着型特定施設入居者生活介護（軽費老人ホーム）"> 地域密着型特定施設入居者生活介護（軽費老人ホーム）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）"> 地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="特定福祉用具販売"> 特定福祉用具販売</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="居宅介護支援"> 居宅介護支援</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="介護老人福祉施設"> 介護老人福祉施設</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="介護老人保健施設"> 介護老人保健施設</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="介護療養型医療施設"> 介護療養型医療施設</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="地域密着型介護老人福祉施設入所者生活介護"> 地域密着型介護老人福祉施設入所者生活介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="介護医療院"> 介護医療院</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="夜間対応型訪問介護"> 夜間対応型訪問介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="認知症対応型通所介護"> 認知症対応型通所介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="小規模多機能型居宅介護"> 小規模多機能型居宅介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="定期巡回・随時対応型訪問介護看護"> 定期巡回・随時対応型訪問介護看護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="看護小規模多機能型居宅介護"> 看護小規模多機能型居宅介護</label>
-    <label class="layer-item"><input type="checkbox" class="layer-toggle" value="地域密着型通所介護"> 地域密着型通所介護</label>
+<div class="section-title" style="margin-top:5px; color:#555; font-size:11px;">▼ 行政境界（町丁目）</div>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界01"> 賀茂医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界02"> 熱海伊東医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界03"> 駿東田方医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界04"> 富士医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界05"> 静岡医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界06"> 志太榛原医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界07"> 中東遠医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界08"> 西部医療圏</label>
+<div class="section-title" style="margin-top:10px; color:#555; font-size:11px;">▼ 施設種類</div>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="病院"> 病院</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="診療所"> 診療所</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="歯科"> 歯科</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="助産院"> 助産院</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="薬局"> 薬局</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="訪問介護"> 訪問介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="訪問入浴介護"> 訪問入浴介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="訪問看護"> 訪問看護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="訪問リハビリテーション"> 訪問リハビリテーション</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="通所介護"> 通所介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="通所介護（療養通所介護）"> 通所介護（療養通所介護）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="通所リハビリテーション"> 通所リハビリテーション</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="福祉用具貸与"> 福祉用具貸与</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="短期入所生活介護"> 短期入所生活介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="短期入所療養介護（介護老人保健施設）"> 短期入所療養介護（介護老人保健施設）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="短期入所療養介護（療養病床を有する病院等）"> 短期入所療養介護（療養病床を有する病院等）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="短期入所療養介護（介護医療院）"> 短期入所療養介護（介護医療院）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="認知症対応型共同生活介護"> 認知症対応型共同生活介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="特定施設入居者生活介護（有料老人ホーム）"> 特定施設入居者生活介護（有料老人ホーム）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="特定施設入居者生活介護（軽費老人ホーム）"> 特定施設入居者生活介護（軽費老人ホーム）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="特定施設入居者生活介護（サービス付き高齢者向け住宅）"> 特定施設入居者生活介護（サービス付き高齢者向け住宅）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）"> 特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）"> 特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）"> 特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="地域密着型特定施設入居者生活介護（有料老人ホーム）"> 地域密着型特定施設入居者生活介護（有料老人ホーム）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="地域密着型特定施設入居者生活介護（軽費老人ホーム）"> 地域密着型特定施設入居者生活介護（軽費老人ホーム）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）"> 地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="特定福祉用具販売"> 特定福祉用具販売</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="居宅介護支援"> 居宅介護支援</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="介護老人福祉施設"> 介護老人福祉施設</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="介護老人保健施設"> 介護老人保健施設</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="介護療養型医療施設"> 介護療養型医療施設</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="地域密着型介護老人福祉施設入所者生活介護"> 地域密着型介護老人福祉施設入所者生活介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="介護医療院"> 介護医療院</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="夜間対応型訪問介護"> 夜間対応型訪問介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="認知症対応型通所介護"> 認知症対応型通所介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="小規模多機能型居宅介護"> 小規模多機能型居宅介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="定期巡回・随時対応型訪問介護看護"> 定期巡回・随時対応型訪問介護看護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="看護小規模多機能型居宅介護"> 看護小規模多機能型居宅介護</label>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="地域密着型通所介護"> 地域密着型通所介護</label>
 
   </div>
   <div id="search-btn" class="circle-btn" onclick="togglePanel('search-panel')">🔍</div>
@@ -309,6 +316,11 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     const map = L.map('map', { 
         center: [34.710233985604596, 137.70251668848428], zoom: 15, preferCanvas: true, zoomControl: false 
     });
+
+    // ★ここに追加：境界線専用の階層（ペイン）を作成
+    map.createPane('boundaryPane');
+    map.getPane('boundaryPane').style.zIndex = 350; // 標準のオーバーレイ(400)より下に配置
+    map.getPane('boundaryPane').style.pointerEvents = 'none'; // 地図上のクリックを邪魔しない設定
 
     // --- Leaflet-geoman 初期化 ---
     map.pm.setLang('ja');
@@ -571,7 +583,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       "国土地理院地図": "© 国土地理院"
     };
 
-    const layerGroups = {};
+    // 【旧】 const layerGroups = {}; を削除して、以下に書き換え
+    const boundaryLayers = {};
+    const facilityLayers = {};
 
     // =====================================================
     // 📍 住所／緯度経度ジャンプ機能（既存構造完全維持型）
@@ -608,7 +622,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
                 return;
             }
 
-            map.setView([lat, lng], 16);
+            map.panTo([lat, lng]); // ← 移動（パン）のみに変更 zoom中止
 
             inputMarker = L.marker([lat, lng]).addTo(map)
                 .bindPopup(input)
@@ -683,7 +697,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
                     const lat = parseFloat(place.lat);
                     const lng = parseFloat(place.lon);
 
-                    map.setView([lat, lng], 16);
+                    map.setView([lat, lng]);
 
                     inputMarker = L.marker([lat, lng]).addTo(map)
                         .bindPopup(place.display_name)
@@ -725,7 +739,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         .then(res => res.json())
         .then(data => {
 
-          layerGroups[`町丁目境界${idx}`] = L.geoJSON(data, {
+          boundaryLayers[`町丁目境界${idx}`] = L.geoJSON(data, {
             renderer: myRenderer,
 
             style: {
@@ -781,7 +795,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }
 
     fetch("geo_22_1.geojson").then(res => res.json()).then(data => {
-        layerGroups["病院"] = L.geoJSON(data, {
+        facilityLayers["病院"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["病院"] || "circle";
                 const color = colorMap["赤"] || "brown";
@@ -836,7 +850,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_2.geojson").then(res => res.json()).then(data => {
-        layerGroups["診療所"] = L.geoJSON(data, {
+        facilityLayers["診療所"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["診療所"] || "circle";
                 const color = colorMap["青"] || "brown";
@@ -891,7 +905,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_3.geojson").then(res => res.json()).then(data => {
-        layerGroups["歯科"] = L.geoJSON(data, {
+        facilityLayers["歯科"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["歯科"] || "circle";
                 const color = colorMap["黄"] || "brown";
@@ -946,7 +960,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_4.geojson").then(res => res.json()).then(data => {
-        layerGroups["助産院"] = L.geoJSON(data, {
+        facilityLayers["助産院"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["助産院"] || "circle";
                 const color = colorMap["赤"] || "brown";
@@ -1001,7 +1015,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_5.geojson").then(res => res.json()).then(data => {
-        layerGroups["薬局"] = L.geoJSON(data, {
+        facilityLayers["薬局"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["薬局"] || "circle";
                 const color = colorMap["緑"] || "brown";
@@ -1056,7 +1070,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_訪問介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["訪問介護"] = L.geoJSON(data, {
+        facilityLayers["訪問介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["訪問介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1111,7 +1125,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_訪問入浴介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["訪問入浴介護"] = L.geoJSON(data, {
+        facilityLayers["訪問入浴介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["訪問入浴介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1166,7 +1180,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_訪問看護.geojson").then(res => res.json()).then(data => {
-        layerGroups["訪問看護"] = L.geoJSON(data, {
+        facilityLayers["訪問看護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["訪問看護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1221,7 +1235,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_訪問リハビリテーション.geojson").then(res => res.json()).then(data => {
-        layerGroups["訪問リハビリテーション"] = L.geoJSON(data, {
+        facilityLayers["訪問リハビリテーション"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["訪問リハビリテーション"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1276,7 +1290,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_通所介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["通所介護"] = L.geoJSON(data, {
+        facilityLayers["通所介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["通所介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1331,7 +1345,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_通所介護（療養通所介護）.geojson").then(res => res.json()).then(data => {
-        layerGroups["通所介護（療養通所介護）"] = L.geoJSON(data, {
+        facilityLayers["通所介護（療養通所介護）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["通所介護（療養通所介護）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1386,7 +1400,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_通所リハビリテーション.geojson").then(res => res.json()).then(data => {
-        layerGroups["通所リハビリテーション"] = L.geoJSON(data, {
+        facilityLayers["通所リハビリテーション"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["通所リハビリテーション"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1441,7 +1455,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_福祉用具貸与.geojson").then(res => res.json()).then(data => {
-        layerGroups["福祉用具貸与"] = L.geoJSON(data, {
+        facilityLayers["福祉用具貸与"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["福祉用具貸与"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1496,7 +1510,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_短期入所生活介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["短期入所生活介護"] = L.geoJSON(data, {
+        facilityLayers["短期入所生活介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["短期入所生活介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1551,7 +1565,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_短期入所療養介護（介護老人保健施設）.geojson").then(res => res.json()).then(data => {
-        layerGroups["短期入所療養介護（介護老人保健施設）"] = L.geoJSON(data, {
+        facilityLayers["短期入所療養介護（介護老人保健施設）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["短期入所療養介護（介護老人保健施設）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1606,7 +1620,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_短期入所療養介護（療養病床を有する病院等）.geojson").then(res => res.json()).then(data => {
-        layerGroups["短期入所療養介護（療養病床を有する病院等）"] = L.geoJSON(data, {
+        facilityLayers["短期入所療養介護（療養病床を有する病院等）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["短期入所療養介護（療養病床を有する病院等）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1661,7 +1675,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_短期入所療養介護（介護医療院）.geojson").then(res => res.json()).then(data => {
-        layerGroups["短期入所療養介護（介護医療院）"] = L.geoJSON(data, {
+        facilityLayers["短期入所療養介護（介護医療院）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["短期入所療養介護（介護医療院）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1716,7 +1730,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_認知症対応型共同生活介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["認知症対応型共同生活介護"] = L.geoJSON(data, {
+        facilityLayers["認知症対応型共同生活介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["認知症対応型共同生活介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1771,7 +1785,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_特定施設入居者生活介護（有料老人ホーム）.geojson").then(res => res.json()).then(data => {
-        layerGroups["特定施設入居者生活介護（有料老人ホーム）"] = L.geoJSON(data, {
+        facilityLayers["特定施設入居者生活介護（有料老人ホーム）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["特定施設入居者生活介護（有料老人ホーム）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1826,7 +1840,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_特定施設入居者生活介護（軽費老人ホーム）.geojson").then(res => res.json()).then(data => {
-        layerGroups["特定施設入居者生活介護（軽費老人ホーム）"] = L.geoJSON(data, {
+        facilityLayers["特定施設入居者生活介護（軽費老人ホーム）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["特定施設入居者生活介護（軽費老人ホーム）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1881,7 +1895,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_特定施設入居者生活介護（サービス付き高齢者向け住宅）.geojson").then(res => res.json()).then(data => {
-        layerGroups["特定施設入居者生活介護（サービス付き高齢者向け住宅）"] = L.geoJSON(data, {
+        facilityLayers["特定施設入居者生活介護（サービス付き高齢者向け住宅）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["特定施設入居者生活介護（サービス付き高齢者向け住宅）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1936,7 +1950,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）.geojson").then(res => res.json()).then(data => {
-        layerGroups["特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）"] = L.geoJSON(data, {
+        facilityLayers["特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -1991,7 +2005,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）.geojson").then(res => res.json()).then(data => {
-        layerGroups["特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）"] = L.geoJSON(data, {
+        facilityLayers["特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2046,7 +2060,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）.geojson").then(res => res.json()).then(data => {
-        layerGroups["特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）"] = L.geoJSON(data, {
+        facilityLayers["特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2101,7 +2115,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_地域密着型特定施設入居者生活介護（有料老人ホーム）.geojson").then(res => res.json()).then(data => {
-        layerGroups["地域密着型特定施設入居者生活介護（有料老人ホーム）"] = L.geoJSON(data, {
+        facilityLayers["地域密着型特定施設入居者生活介護（有料老人ホーム）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["地域密着型特定施設入居者生活介護（有料老人ホーム）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2156,7 +2170,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_地域密着型特定施設入居者生活介護（軽費老人ホーム）.geojson").then(res => res.json()).then(data => {
-        layerGroups["地域密着型特定施設入居者生活介護（軽費老人ホーム）"] = L.geoJSON(data, {
+        facilityLayers["地域密着型特定施設入居者生活介護（軽費老人ホーム）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["地域密着型特定施設入居者生活介護（軽費老人ホーム）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2211,7 +2225,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）.geojson").then(res => res.json()).then(data => {
-        layerGroups["地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）"] = L.geoJSON(data, {
+        facilityLayers["地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2266,7 +2280,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_特定福祉用具販売.geojson").then(res => res.json()).then(data => {
-        layerGroups["特定福祉用具販売"] = L.geoJSON(data, {
+        facilityLayers["特定福祉用具販売"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["特定福祉用具販売"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2321,7 +2335,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_居宅介護支援.geojson").then(res => res.json()).then(data => {
-        layerGroups["居宅介護支援"] = L.geoJSON(data, {
+        facilityLayers["居宅介護支援"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["居宅介護支援"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2376,7 +2390,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_介護老人福祉施設.geojson").then(res => res.json()).then(data => {
-        layerGroups["介護老人福祉施設"] = L.geoJSON(data, {
+        facilityLayers["介護老人福祉施設"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["介護老人福祉施設"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2431,7 +2445,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_介護老人保健施設.geojson").then(res => res.json()).then(data => {
-        layerGroups["介護老人保健施設"] = L.geoJSON(data, {
+        facilityLayers["介護老人保健施設"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["介護老人保健施設"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2486,7 +2500,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_介護療養型医療施設.geojson").then(res => res.json()).then(data => {
-        layerGroups["介護療養型医療施設"] = L.geoJSON(data, {
+        facilityLayers["介護療養型医療施設"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["介護療養型医療施設"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2541,7 +2555,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_地域密着型介護老人福祉施設入所者生活介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["地域密着型介護老人福祉施設入所者生活介護"] = L.geoJSON(data, {
+        facilityLayers["地域密着型介護老人福祉施設入所者生活介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["地域密着型介護老人福祉施設入所者生活介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2596,7 +2610,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_介護医療院.geojson").then(res => res.json()).then(data => {
-        layerGroups["介護医療院"] = L.geoJSON(data, {
+        facilityLayers["介護医療院"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["介護医療院"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2651,7 +2665,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_夜間対応型訪問介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["夜間対応型訪問介護"] = L.geoJSON(data, {
+        facilityLayers["夜間対応型訪問介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["夜間対応型訪問介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2706,7 +2720,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_認知症対応型通所介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["認知症対応型通所介護"] = L.geoJSON(data, {
+        facilityLayers["認知症対応型通所介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["認知症対応型通所介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2761,7 +2775,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_小規模多機能型居宅介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["小規模多機能型居宅介護"] = L.geoJSON(data, {
+        facilityLayers["小規模多機能型居宅介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["小規模多機能型居宅介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2816,7 +2830,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_定期巡回・随時対応型訪問介護看護.geojson").then(res => res.json()).then(data => {
-        layerGroups["定期巡回・随時対応型訪問介護看護"] = L.geoJSON(data, {
+        facilityLayers["定期巡回・随時対応型訪問介護看護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["定期巡回・随時対応型訪問介護看護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2871,7 +2885,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_看護小規模多機能型居宅介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["看護小規模多機能型居宅介護"] = L.geoJSON(data, {
+        facilityLayers["看護小規模多機能型居宅介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["看護小規模多機能型居宅介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2926,7 +2940,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }).catch(e => {});
     
     fetch("geo_22_地域密着型通所介護.geojson").then(res => res.json()).then(data => {
-        layerGroups["地域密着型通所介護"] = L.geoJSON(data, {
+        facilityLayers["地域密着型通所介護"] = L.geoJSON(data, {
             pointToLayer: (f, latlng) => {
                 const shape = shapeMap["地域密着型通所介護"] || "circle";
                 const color = colorMap["茶"] || "brown";
@@ -2982,21 +2996,24 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     
     for(let i=1; i<=8; i++) { loadChome(i.toString().padStart(2, '0')); }
 
-    document.querySelectorAll('.layer-toggle').forEach(cb => {
+    // --- 新コード：ここから差し替え ---
+    // 1. 境界線チェックボックスの動作
+    document.querySelectorAll('.boundary-toggle').forEach(cb => {
         cb.addEventListener('change', function() {
-            const g = layerGroups[this.value];
+            const g = boundaryLayers[this.value]; // 分離したオブジェクトを参照
+            if (!g) return;
+            this.checked ? g.addTo(map) : map.removeLayer(g);
+        });
+    });
+
+    // 2. 施設種類チェックボックスの動作
+    document.querySelectorAll('.facility-toggle').forEach(cb => {
+        cb.addEventListener('change', function() {
+            const g = facilityLayers[this.value]; // 分離したオブジェクトを参照
             if (!g) return;
             if (this.checked) {
                 g.addTo(map);
-                setTimeout(() => {
-                    if (g.eachLayer) {
-                        g.eachLayer(layer => {
-                            if (layer.getLatLng && layer.setLatLng) { layer.setLatLng(layer.getLatLng()); } 
-                            else if (layer.setStyle) { layer.setStyle({}); }
-                        });
-                    }
-                    if (myRenderer) myRenderer.redraw();
-                }, 10); 
+                if (myRenderer) myRenderer.redraw();
             } else { map.removeLayer(g); }
         });
     });
@@ -3007,9 +3024,10 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         resDiv.innerHTML = '';
         if(!val) return;
         const keywords = val.split(/[\s　]+/);
-        for (let label in layerGroups) {
-            if (label.includes("町丁目境界") || !layerGroups[label]) continue;
-            layerGroups[label].eachLayer(l => {
+        // 施設レイヤーのみをループ対象にする
+        for (let label in facilityLayers) {
+            if (!facilityLayers[label]) continue;
+            facilityLayers[label].eachLayer(l => {
                 const name = (l.feature.properties["内容"] || "").toLowerCase();
                 if(keywords.every(kw => name.includes(kw))) {
                     const item = document.createElement('div');
@@ -3037,27 +3055,35 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         if(!val) return;
         
         const keywords = val.split(/[\s　]+/);
-        const bounds = []; // 全マーカーを収める表示範囲を計算用
+        const bounds = []; 
 
-        for (let label in layerGroups) {
-            // 町丁目境界データを除外
-            if (label.includes("町丁目境界") || !layerGroups[label]) continue;
+        // 修正ポイント1: layerGroups ではなく facilityLayers をループ回す
+        for (let label in facilityLayers) {
+            if (!facilityLayers[label]) continue;
 
-            layerGroups[label].eachLayer(l => {
+            // 修正ポイント2: facilityLayers の各レイヤーを処理する
+            facilityLayers[label].eachLayer(l => {
                 const name = (l.feature.properties["内容"] || "").toLowerCase();
-                // 全キーワードに一致する場合
                 if(keywords.every(kw => name.includes(kw))) {
-                    if (!map.hasLayer(l)) { 
-                        l.addTo(map); // 未表示なら地図に追加
+                    // 修正ポイント3: 見つかった施設のチェックボックスも連動してONにする（推奨）
+                    const cb = document.querySelector(`.facility-toggle[value="${label}"]`);
+                    if (cb && !cb.checked) {
+                        cb.checked = true;
                     }
-                    bounds.push(l.getLatLng()); // 座標を蓄積
+
+                    if (!map.hasLayer(l)) { 
+                        l.addTo(map); 
+                    }
+                    bounds.push(l.getLatLng());
                 }
             });
         }
+
         if (bounds.length > 0) {
-            const center = L.latLngBounds(bounds).getCenter();
-            map.panTo(center);  // ズームは変わらず、移動のみ
-            document.getElementById('search-panel').style.display = 'none'; // パネルを閉じる
+            const latLngBounds = L.latLngBounds(bounds);
+            const center = latLngBounds.getCenter();
+            map.panTo(center);
+            document.getElementById('search-panel').style.display = 'none';
         } else {
             alert("該当する施設が見つかりません。");
         }
@@ -3070,11 +3096,43 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         if(!isVisible) p.style.display = 'block';
     }
 
-    document.getElementById('selectAllBtn').onclick = () => {
-        document.querySelectorAll('.layer-toggle').forEach(cb => { cb.checked = true; cb.dispatchEvent(new Event('change')); });
+    // --- 新コード：4つのボタン用に書き換え ---
+    // 境界線の一括操作
+    // 1. 境界線チェックボックスの動作
+    document.querySelectorAll('.boundary-toggle').forEach(cb => {
+        cb.addEventListener('change', function() {
+            const g = boundaryLayers[this.value]; // 境界線用変数を参照
+            if (!g) return;
+            if (this.checked) { g.addTo(map); } 
+            else { map.removeLayer(g); }
+        });
+    });
+    document.getElementById('deselectBoundariesBtn').onclick = () => {
+        document.querySelectorAll('.boundary-toggle').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
     };
-    document.getElementById('deselectAllBtn').onclick = () => {
-        document.querySelectorAll('.layer-toggle').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
+
+    // 施設種類の一括操作
+    // 2. 施設種類チェックボックスの動作
+    document.querySelectorAll('.facility-toggle').forEach(cb => {
+        cb.addEventListener('change', function() {
+            const g = facilityLayers[this.value]; // 施設用変数を参照
+            if (!g) return;
+            if (this.checked) {
+                g.addTo(map);
+                // マーカーの再描画処理（表示の不具合防止）
+                setTimeout(() => {
+                    g.eachLayer(layer => {
+                        if (layer.getLatLng) layer.setLatLng(layer.getLatLng());
+                    });
+                    if (myRenderer) myRenderer.redraw();
+                }, 10);
+            } else {
+                map.removeLayer(g);
+            }
+        });
+    });
+    document.getElementById('deselectFacilitiesBtn').onclick = () => {
+        document.querySelectorAll('.facility-toggle').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
     };
 
     document.querySelectorAll('input[name="baseLayer"]').forEach(radio => {
@@ -3096,6 +3154,22 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
             location.reload();
         }
     }
+
+    // 境界線の全て選択
+    document.getElementById('selectBoundariesBtn').onclick = () => {
+        document.querySelectorAll('.boundary-toggle').forEach(cb => { 
+            cb.checked = true; 
+            cb.dispatchEvent(new Event('change')); 
+        });
+    };
+
+    // 施設種類の全て選択
+    document.getElementById('selectFacilitiesBtn').onclick = () => {
+        document.querySelectorAll('.facility-toggle').forEach(cb => { 
+            cb.checked = true; 
+            cb.dispatchEvent(new Event('change')); 
+        });
+    };    
   </script>
 </body>
 </html>
