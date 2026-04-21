@@ -461,20 +461,19 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     }
 
     // (ここから下は既存の toggleTextMode(active) や map.on('click', ...) を継続)
-
+    // 【修正箇所】テキストモード時にダブルズームを無効化
     function toggleTextMode(active) {
       isTextMode = active;
       document.getElementById('text-config-panel').style.display = active ? 'block' : 'none';
       if(active) {
         map.getContainer().style.cursor = 'crosshair';
-        map.pm.disableDraw(); // Ｔを押した時は図形描画ツールを解除
+        map.pm.disableDraw();
         map.doubleClickZoom.disable(); // ダブルタップズーム無効化
       } else {
         map.getContainer().style.cursor = '';
         map.doubleClickZoom.enable(); // ダブルタップズーム有効化
       }
     }
-
     // --- 地図クリック時の処理（経路探索・テキスト配置・パネル閉じを統合） ---
     map.on('click', (e) => {
       // 1. 【追加】経路探索モードがONの場合
