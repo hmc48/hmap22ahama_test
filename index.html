@@ -2994,6 +2994,15 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         });
     }).catch(e => {});
     
+    // --- ★修正：UIパネル上の操作が地図（ズーム等）に伝わらないように設定 ---
+    ['controls', 'search-panel', 'route-panel', 'text-config-panel', 'info-panel'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            L.DomEvent.disableClickPropagation(el);
+            L.DomEvent.disableScrollPropagation(el);
+        }
+    });
+
     for(let i=1; i<=8; i++) { loadChome(i.toString().padStart(2, '0')); }
 
     // --- 新コード：ここから差し替え ---
