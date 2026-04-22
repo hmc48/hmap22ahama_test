@@ -51,12 +51,12 @@ body { margin:0; padding:0; overflow:hidden; font-family: sans-serif; }
 }
 
 #control-btn { top:55px; right:15px; background:#007bff; color:white; }
-#search-btn { top:95px; right:15px; background:#28a745; color:white; }
-#info-btn { top:135px; right:15px; background:#ff69b4; color:white; }
-#jump-btn { top:175px; right:15px; background:#ff9800; color:white; }
+#search-btn { top:90px; right:15px; background:#28a745; color:white; }
+#info-btn { top:130px; right:15px; background:#ff69b4; color:white; }
+#jump-btn { top:170px; right:15px; background:#ff9800; color:white; }
 /* 追加：経路探索ボタンとパネル */
-#route-btn { top:215px; right:15px; background:#673ab7; color:white; }
-#reload-btn { top:255px; right:15px; background:#6c757d; color:white; }
+#route-btn { top:210px; right:15px; background:#673ab7; color:white; }
+#reload-btn { top:250px; right:15px; background:#6c757d; color:white; }
 #route-panel {
   display:none; position:fixed; top:45px; right:75px; 
   background:white; padding:15px; border-radius:8px; z-index:4000;
@@ -116,7 +116,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 .search-item:hover { background:#f0f0f0; cursor:pointer; }
     /* 図形描写追加 */
     .leaflet-top.leaflet-right {
-      margin-top: 295px;
+      margin-top: 275px;
     }
 
     /* 図形描画レイヤーをマーカーより下に配置 */
@@ -673,6 +673,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       options: { position: 'topright' },
       onAdd: function() {
         const container = L.DomUtil.create('div', 'leaflet-bar');
+        container.style.marginTop = '1px';
         
         // 1. テキスト入力起動ボタン（Ｔ）
         const textBtn = L.DomUtil.create('a', 'pm-text-btn', container);
@@ -691,6 +692,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 
         // 2. カラーパレット（最下部に配置）
         const colorBtnContainer = L.DomUtil.create('div', 'pm-color-picker-container', container);
+        colorBtnContainer.style.marginTop = '0px'; // '5px' などから '0px' に変更
         const btn = L.DomUtil.create('div', 'pm-color-btn', colorBtnContainer);
         btn.innerHTML = '🎨';
         btn.title = "描画色の変更";
@@ -714,7 +716,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         const imgBtn = L.DomUtil.create('a', 'pm-image-btn', container);
         imgBtn.innerHTML = '🖼️';
         imgBtn.title = "画像の追加・編集";
-        imgBtn.style.cssText = "cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; border-top:1px solid #ccc;";
+        imgBtn.style.cssText = "cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; border-top:0px solid #ccc;";
         imgBtn.onclick = (e) => {
            e.preventDefault();
            toggleImageMode();
@@ -724,7 +726,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         const selBtn = L.DomUtil.create('a', 'pm-select-btn', container);
         selBtn.innerHTML = '👆';
         selBtn.title = "配置済み画像を選択";
-        selBtn.style.cssText = "cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; border-top:1px solid #ccc;";
+        selBtn.style.cssText = "cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; border-top:0px solid #ccc;";
         selBtn.onclick = (e) => {
           e.preventDefault();
           startImageSelectionMode();
