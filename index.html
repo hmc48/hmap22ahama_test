@@ -430,8 +430,17 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     });
 
     // 緯度経度指定　各都道府県庁所在地
-    const map = L.map('map', { 
-        center: [34.710233985604596, 137.70251668848428], zoom: 15, preferCanvas: true, zoomControl: false 
+    //const map = L.map('map', { 
+    //    center: [34.710233985604596, 137.70251668848428], zoom: 15, preferCanvas: true, zoomControl: false 
+    //});
+
+    // マップの初期化
+    const map = L.map('map', {
+      center: [34.710233985604596, 137.70251668848428], // 浜松市付近
+      zoom: 15,
+      zoomSnap: 0.1,  // ズーム後の値を0.1単位で固定する
+      zoomDelta: 0.1, // ボタンやキーボード操作での変化量を0.1にする
+      wheelPxPerZoomLevel: 120 // ホイール操作の感度（数値が大きいほどゆっくり）
     });
 
     // ★ここに追加：境界線専用の階層（ペイン）を作成
@@ -742,10 +751,13 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 
     function updateZoomIndicator() {
         const zoom = map.getZoom();
-        document.getElementById('zoom-indicator').innerText = `Zoom: ${zoom}`;
+        // zoom.toFixed(1) を使うことで、小数点第1位までに制限します
+        document.getElementById('zoom-indicator').innerText = `Zoom: ${zoom.toFixed(1)}`;
     }
     updateZoomIndicator();
-    map.on('zoomend', updateZoomIndicator);
+    // ズーム中もリアルタイムに数値を変化させたい場合は 'zoom' に、
+    // ズームが止まった時だけで良ければ 'zoomend' のままにします
+    map.on('zoom', updateZoomIndicator);
     
     const baseLayers = {
       "標準": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 21, maxNativeZoom: 19 }),
