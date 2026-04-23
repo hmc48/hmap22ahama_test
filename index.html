@@ -3140,18 +3140,24 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       cb.addEventListener('change', function() {
         const g = facilityLayers[this.value];
         if (!g) return;
-
-        if (this.checked) {
-            g.addTo(map);
-
-            // ★強制再描画（これが本質）
-            g.eachLayer(layer => {
-                if (layer.getLatLng) {
-                    layer.setLatLng(layer.getLatLng());
-                }
-            });
-
-        } else {
+           if (this.checked) {
+                g.addTo(map);
+                
+                // レイヤー追加後、Canvasの描画とヒット検知を確定させる
+                setTimeout(() => {
+                    if (g.eachLayer) {
+                        g.eachLayer(layer => {
+                            // 各レイヤー（マーカー・ポリゴン）の描画更新
+                            if (typeof layer.redraw === 'function') {
+                                layer.redraw();
+                            }
+                        });
+                    }
+                    // レンダラー全体の更新が必要な場合は、内部関数 _update を安全に呼び出すか、
+                    // または単に map のイベントをキックします
+                    map.fire('moveend'); 
+                }, 10); 
+            } else {
             map.removeLayer(g);
         }
       });  
@@ -3250,27 +3256,6 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         document.querySelectorAll('.boundary-toggle').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
     };
 
-    // 施設種類の一括操作
-    // 2. 施設種類チェックボックスの動作
-    document.querySelectorAll('.facility-toggle').forEach(cb => {
-        cb.addEventListener('change', function() {
-            const g = facilityLayers[this.value]; // 施設用変数を参照
-            if (!g) return;
-            if (this.checked) {
-                g.addTo(map);
-                // マーカーの再描画処理（表示の不具合防止）
-                setTimeout(() => {
-                    g.eachLayer(layer => {
-                        if (layer.getLatLng) {
-                            layer.setLatLng(layer.getLatLng());
-                        }    
-                    });
-                }, 10);
-            } else {
-                map.removeLayer(g);
-            }
-        });
-    });
     document.getElementById('deselectFacilitiesBtn').onclick = () => {
         document.querySelectorAll('.facility-toggle').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
     };
