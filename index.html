@@ -3143,9 +3143,10 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
             if (this.checked) {
                 g.addTo(map);
                 // if (myRenderer) myRenderer.redraw();  //不要
-                // Canvasレンダラーに再描画を依頼する正しい内部命令（※非公式ですが効果的）
-                if (myRenderer._draw) {
+                // myRenderer が存在し、かつ _draw メソッドがある場合のみ実行
+                if (myRenderer && typeof myRenderer._draw === 'function') {
                     myRenderer._draw();
+                }
             } else { map.removeLayer(g); }
         });
     });
@@ -3249,6 +3250,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         cb.addEventListener('change', function() {
             const g = facilityLayers[this.value]; // 施設用変数を参照
             if (!g) return;
+        
             if (this.checked) {
                 g.addTo(map);
                 // マーカーの再描画処理（表示の不具合防止）
@@ -3256,16 +3258,19 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
                     g.eachLayer(layer => {
                         if (layer.getLatLng) layer.setLatLng(layer.getLatLng());
                     });
-                    // if (myRenderer) myRenderer.redraw();  // 不要
-                    // Canvasレンダラーに再描画を依頼する正しい内部命令（※非公式ですが効果的）
-                    if (myRenderer._draw) {
+                
+                    // --- ここを修正：if文の閉じカッコを追加 ---
+                    if (myRenderer && typeof myRenderer._draw === 'function') {
                         myRenderer._draw();
+                    } 
+                    // ---------------------------------------
                 }, 10);
             } else {
                 map.removeLayer(g);
             }
         });
     });
+
     document.getElementById('deselectFacilitiesBtn').onclick = () => {
         document.querySelectorAll('.facility-toggle').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
     };
