@@ -3143,6 +3143,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
             if (this.checked) {
                 g.addTo(map);
                 // if (myRenderer) myRenderer.redraw();  //不要
+                // Canvasレンダラーに再描画を依頼する正しい内部命令（※非公式ですが効果的）
+                if (myRenderer._draw) {
+                    myRenderer._draw();
             } else { map.removeLayer(g); }
         });
     });
@@ -3254,6 +3257,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
                         if (layer.getLatLng) layer.setLatLng(layer.getLatLng());
                     });
                     // if (myRenderer) myRenderer.redraw();  // 不要
+                    // Canvasレンダラーに再描画を依頼する正しい内部命令（※非公式ですが効果的）
+                    if (myRenderer._draw) {
+                        myRenderer._draw();
                 }, 10);
             } else {
                 map.removeLayer(g);
