@@ -3137,7 +3137,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 
     // 2. 施設種類チェックボックスの動作
     document.querySelectorAll('.facility-toggle').forEach(cb => {
-    cb.addEventListener('change', function() {
+      cb.addEventListener('change', function() {
         const g = facilityLayers[this.value];
         if (!g) return;
 
@@ -3154,6 +3154,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         } else {
             map.removeLayer(g);
         }
+      });  
     });
 
     document.getElementById('search-input').oninput = function(e) {
