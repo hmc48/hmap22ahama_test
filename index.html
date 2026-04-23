@@ -3137,18 +3137,23 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 
     // 2. 施設種類チェックボックスの動作
     document.querySelectorAll('.facility-toggle').forEach(cb => {
-        cb.addEventListener('change', function() {
-            const g = facilityLayers[this.value]; // 分離したオブジェクトを参照
-            if (!g) return;
-            if (this.checked) {
-                g.addTo(map);
-                // if (myRenderer) myRenderer.redraw();  //不要
-                // myRenderer が存在し、かつ _draw メソッドがある場合のみ実行
-                if (myRenderer && typeof myRenderer._draw === 'function') {
-                    myRenderer._draw();
+    cb.addEventListener('change', function() {
+        const g = facilityLayers[this.value];
+        if (!g) return;
+
+        if (this.checked) {
+            g.addTo(map);
+
+            // ★強制再描画（これが本質）
+            g.eachLayer(layer => {
+                if (layer.getLatLng) {
+                    layer.setLatLng(layer.getLatLng());
                 }
-            } else { map.removeLayer(g); }
-        });
+            });
+
+        } else {
+            map.removeLayer(g);
+        }
     });
 
     document.getElementById('search-input').oninput = function(e) {
@@ -3250,27 +3255,21 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
         cb.addEventListener('change', function() {
             const g = facilityLayers[this.value]; // 施設用変数を参照
             if (!g) return;
-        
             if (this.checked) {
                 g.addTo(map);
                 // マーカーの再描画処理（表示の不具合防止）
                 setTimeout(() => {
                     g.eachLayer(layer => {
-                        if (layer.getLatLng) layer.setLatLng(layer.getLatLng());
+                        if (layer.getLatLng) {
+                            layer.setLatLng(layer.getLatLng());
+                        }    
                     });
-                
-                    // --- ここを修正：if文の閉じカッコを追加 ---
-                    if (myRenderer && typeof myRenderer._draw === 'function') {
-                        myRenderer._draw();
-                    } 
-                    // ---------------------------------------
                 }, 10);
             } else {
                 map.removeLayer(g);
             }
         });
     });
-
     document.getElementById('deselectFacilitiesBtn').onclick = () => {
         document.querySelectorAll('.facility-toggle').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
     };
