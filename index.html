@@ -3253,7 +3253,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
                     g.eachLayer(layer => {
                         if (layer.getLatLng) layer.setLatLng(layer.getLatLng());
                     });
-                    if (myRenderer) myRenderer.redraw();
+                    // if (myRenderer) myRenderer.redraw();  // 不要
                 }, 10);
             } else {
                 map.removeLayer(g);
