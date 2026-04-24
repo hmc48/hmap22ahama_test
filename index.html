@@ -2782,19 +2782,26 @@ fetch("geo_22_地域密着型通所介護.geojson")
     }
 
     function addImageToMap(url) {
-        // --- ここから修正：画面右上(50, 50)の座標を取得 ---
+        // 1. 地図コンテナのサイズを取得
         const container = map.getContainer();
         const width = container.offsetWidth;
-        const targetPoint = L.point(width  - 250, 50); // 右端から50px、上から80px
+
+        // 2. 画面右端から250px、上から50pxの位置を指定
+        // ここでカッコの閉じ忘れがないか注意
+        const targetPoint = L.point(width - 250, 50); 
+
+        // 3. ピクセル座標を緯度経度に変換
         const targetLatLng = map.containerPointToLayerPoint(targetPoint);
         const coords = map.layerPointToLatLng(targetLatLng);
-        
+
         const icon = L.divIcon({
             html: `<img src="${url}" style="width:100px; transform: rotate(0deg) scale(1.0);" class="map-added-image">`,
             className: 'image-marker-container',
             iconSize: [100, 100],
             iconAnchor: [50, 50]
         });
+
+        // 4. マーカーを作成（coordsを使用）
         const marker = L.marker(coords, { draggable: true }).addTo(map);
         marker.setIcon(icon);
         setupImageEdit(marker);
