@@ -474,8 +474,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 
     // マップの初期化
     const map = L.map('map', {
-      center: [34.710233985604596, 137.70251668848428], // 浜松市付近
+      center: [34.710233985604596, 137.70251668848428], // 緯度経度
       zoom: 15,
+      preferCanvas: true, // これを追加
       zoomSnap: 0.1,  // ズーム後の値を0.1単位で固定する
       zoomDelta: 0.1, // ボタンやキーボード操作での変化量を0.1にする
       wheelPxPerZoomLevel: 120 // ホイール操作の感度（数値が大きいほどゆっくり）
