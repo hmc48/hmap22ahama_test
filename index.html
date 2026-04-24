@@ -2786,9 +2786,9 @@ fetch("geo_22_地域密着型通所介護.geojson")
         const container = map.getContainer();
         const width = container.offsetWidth;
 
-        // 2. 画面右端から250px、上から50pxの位置を指定
+        // 2. 画面右端から250px、上から100pxの位置を指定
         // ここでカッコの閉じ忘れがないか注意
-        const targetPoint = L.point(width - 250, 50); 
+        const targetPoint = L.point(width - 250, 100); 
 
         // 3. ピクセル座標を緯度経度に変換
         const targetLatLng = map.containerPointToLayerPoint(targetPoint);
