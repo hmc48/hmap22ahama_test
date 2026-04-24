@@ -2795,7 +2795,7 @@ fetch("geo_22_地域密着型通所介護.geojson")
             iconSize: [100, 100],
             iconAnchor: [50, 50]
         });
-        const marker = L.marker(center, { draggable: true }).addTo(map);
+        const marker = L.marker(coords, { draggable: true }).addTo(map);
         marker.setIcon(icon);
         setupImageEdit(marker);
     }
