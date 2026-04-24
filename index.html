@@ -2782,7 +2782,13 @@ fetch("geo_22_地域密着型通所介護.geojson")
     }
 
     function addImageToMap(url) {
-        const center = map.getCenter();
+        // --- ここから修正：画面右上(50, 50)の座標を取得 ---
+        const container = map.getContainer();
+        const width = container.offsetWidth;
+        const targetPoint = L.point(width - 50, 50); // 右端から50px、上から50px
+        const targetLatLng = map.containerPointToLayerPoint(targetPoint);
+        const coords = map.layerPointToLatLng(targetLatLng);
+        
         const icon = L.divIcon({
             html: `<img src="${url}" style="width:100px; transform: rotate(0deg) scale(1.0);" class="map-added-image">`,
             className: 'image-marker-container',
