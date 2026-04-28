@@ -796,6 +796,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     // ズームが止まった時だけで良ければ 'zoomend' のままにします
     map.on('zoom', updateZoomIndicator);
     
+    // 1. レイヤー定義（ここを丸ごと差し替え）
     const baseLayers = {
       "標準": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 21, maxNativeZoom: 19 }),
       "国土地理院地図": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', { maxZoom: 21, maxNativeZoom: 18 }),
@@ -806,8 +807,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       "1974": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 17 }),
       "1979": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo2/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 17 })
     };
-    
-    const creditText = {
+
+    // 2. 出典テキスト（重複しないようこれ1つだけにする）
+    const creditTextMap = {
       "標準": "© OpenStreetMap",
       "国土地理院地図": "© 国土地理院",
       "航空写真": "© 国土地理院（最新）",
@@ -817,6 +819,32 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       "1974": "© 国土地理院（1974-78年頃）",
       "1979": "© 国土地理院（1979-83年頃）"
     };
+
+    // 3. 初期のレイヤー設定
+    let currentBaseLayerName = "標準";
+    baseLayers[currentBaseLayerName].addTo(map);
+
+    // 4. 切り替えイベント（ここが重要！）
+    document.querySelectorAll('input[name="baseLayer"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        const nextLayerName = e.target.value;
+    
+        // 現在のレイヤーを削除
+        map.removeLayer(baseLayers[currentBaseLayerName]);
+    
+        // 新しいレイヤーを追加
+        if (baseLayers[nextLayerName]) {
+          baseLayers[nextLayerName].addTo(map);
+          currentBaseLayerName = nextLayerName;
+      
+          // 出典表示の更新（もしcredit表示用のIDがある場合）
+          const creditElement = document.getElementById('map-credit'); // ID名は既存コードに合わせてください
+          if (creditElement) {
+            creditElement.innerHTML = creditTextMap[nextLayerName];
+          }
+        }
+      });
+    });
     
     baseLayers["標準"].addTo(map);
 
