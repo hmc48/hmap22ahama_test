@@ -200,10 +200,13 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     </div>
     <div class="section-title">地図の種類</div>
     <label class="layer-item"><input type="radio" name="baseLayer" value="標準" checked> オープンストリートマップ</label>
-    <label class="layer-item"><input type="radio" name="baseLayer" value="航空写真"> 航空写真(国土地理院)</label>
+    <label class="layer-item"><input type="radio" name="baseLayer" value="航空写真"> 航空写真(最新)</label>
+    <label class="layer-item"><input type="radio" name="baseLayer" value="1936"> 航空写真(1936-42年頃)</label>
+    <label class="layer-item"><input type="radio" name="baseLayer" value="1945"> 航空写真(1945-50年頃)</label>
+    <label class="layer-item"><input type="radio" name="baseLayer" value="1961"> 航空写真(1961-69年頃)</label>
+    <label class="layer-item"><input type="radio" name="baseLayer" value="1974"> 航空写真(1974-78年頃)</label>
+    <label class="layer-item"><input type="radio" name="baseLayer" value="1979"> 航空写真(1979-83年頃)</label>
     <label class="layer-item"><input type="radio" name="baseLayer" value="国土地理院地図"> 国土地理院地図</label>
-    <div class="section-title">境界線・施設種類</div>
-
 <div class="section-title" style="margin-top:5px; color:#555; font-size:11px;">▼ 行政境界（町丁目）</div>
     <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界01"> 賀茂医療圏</label>
     <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界02"> 熱海伊東医療圏</label>
@@ -466,11 +469,6 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
             ctx.closePath(); ctx.fill(); ctx.stroke();
         }
     });
-
-    // 緯度経度指定　各都道府県庁所在地
-    //const map = L.map('map', { 
-    //    center: [34.710233985604596, 137.70251668848428], zoom: 15, preferCanvas: true, zoomControl: false 
-    //});
 
     // マップの初期化
     const map = L.map('map', {
@@ -801,9 +799,24 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     const baseLayers = {
       "標準": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 21, maxNativeZoom: 19 }),
       "国土地理院地図": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', { maxZoom: 21, maxNativeZoom: 18 }),
-      "航空写真": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', { maxZoom: 21, maxNativeZoom: 18 })
+      "航空写真": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', { maxZoom: 21, maxNativeZoom: 18 }),
+      "1936": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_old10/{z}/{x}/{y}.png', { maxZoom: 17, maxNativeZoom: 17 }),
+      "1945": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_usa10/{z}/{x}/{y}.png', { maxZoom: 17, maxNativeZoom: 17 }),
+      "1961": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_ri10/{z}/{x}/{y}.png', { maxZoom: 17, maxNativeZoom: 17 }),
+      "1974": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg', { maxZoom: 17, maxNativeZoom: 17 }),
+      "1979": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo2/{z}/{x}/{y}.jpg', { maxZoom: 17, maxNativeZoom: 17 })
     };
     baseLayers["標準"].addTo(map);
+    const creditText = {
+      "標準": "© OpenStreetMap",
+      "航空写真": "© 国土地理院（航空写真）",
+      "1936": "© 国土地理院（1936-42年頃）",
+      "1945": "© 国土地理院（1945-50年頃）",
+      "1961": "© 国土地理院（1961-69年頃）",
+      "1974": "© 国土地理院（1974-78年頃）",
+      "1979": "© 国土地理院（1979-83年頃）",
+      "国土地理院地図": "© 国土地理院"
+    };
     const creditText = {
       "標準": "© OpenStreetMap",
       "航空写真": "© 国土地理院（航空写真）",
