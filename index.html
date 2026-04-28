@@ -2740,8 +2740,11 @@ fetch("geo_22_地域密着型通所介護.geojson")
     document.querySelectorAll('input[name="baseLayer"]').forEach(radio => {
       radio.addEventListener('change', function() {
         for (let key in baseLayers) { map.removeLayer(baseLayers[key]); }
-        baseLayers[this.value].addTo(map);
-        document.getElementById("credit-title").innerText = creditTextMap[this.value] || "";
+        if (baseLayers[this.value]) {
+            baseLayers[this.value].addTo(map);
+            // 変数名を creditTextMap に修正
+            document.getElementById("credit-title").innerText = creditTextMap[this.value] || "";
+        }
       });
     });
 
