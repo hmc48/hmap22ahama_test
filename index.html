@@ -2741,7 +2741,7 @@ fetch("geo_22_地域密着型通所介護.geojson")
       radio.addEventListener('change', function() {
         for (let key in baseLayers) { map.removeLayer(baseLayers[key]); }
         baseLayers[this.value].addTo(map);
-        document.getElementById("credit-title").innerText = creditText[this.value] || "";
+        document.getElementById("credit-title").innerText = creditTextMap[this.value] || "";
       });
     });
 
