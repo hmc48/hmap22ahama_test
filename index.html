@@ -768,16 +768,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
            toggleImageMode();
         };
 
-        // 4. 【追加】画像選択ボタン（指アイコン等）
-        const selBtn = L.DomUtil.create('a', 'pm-select-btn', container);
-        selBtn.innerHTML = '👆';
-        selBtn.title = "配置済み画像を選択";
-        selBtn.style.cssText = "cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; border-top:0px solid #ccc;";
-        selBtn.onclick = (e) => {
-          e.preventDefault();
-          startImageSelectionMode();
-        };
-
+   
         L.DomEvent.disableClickPropagation(container);
         return container;
       }
@@ -802,10 +793,10 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       "国土地理院地図": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', { maxZoom: 21, maxNativeZoom: 18 }),
       "航空写真": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', { maxZoom: 21, maxNativeZoom: 18 }),
       "1936": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_old10/{z}/{x}/{y}.png', { maxZoom: 18, maxNativeZoom: 17 }),
-      "1945": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_usa10/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 17 }),
-      "1961": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_ri10/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 17 }),
-      "1974": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 17 }),
-      "1979": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo2/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 17 })
+      "1945": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_usa10/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 14 }),
+      "1961": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort_ri10/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 14 }),
+      "1974": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 14 }),
+      "1979": L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/gazo2/{z}/{x}/{y}.jpg', { maxZoom: 18, maxNativeZoom: 14 })
     };
 
     // 2. 出典テキスト（重複しないようこれ1つだけにする）
