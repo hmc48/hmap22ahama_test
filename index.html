@@ -123,7 +123,7 @@ input[type="checkbox"], input[type="radio"] { margin-right: 10px; transform: sca
 .pm-color-btn {
   width: 34px; height: 34px; background: white; border: 2px solid rgba(0,0,0,0.2);
   border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 18px; box-sizing: border-box;
+  font-size: 18px; box sizing: border-box;
 }
 .pm-color-btn:hover { background: #f4f4f4; }
 #pm-color-input {
@@ -257,17 +257,10 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       ※国土地理院・ハザードマップポータルサイトの配信データ
     </div>
 
-    <div class="section-title">境界線・施設種類</div>
-<div class="section-title" style="margin-top:5px; color:#555; font-size:11px;">▼ 行政境界（町丁目）</div>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界01"> 賀茂医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界02"> 熱海伊東医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界03"> 駿東田方医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界04"> 富士医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界05"> 静岡医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界06"> 志太榛原医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界07"> 中東遠医療圏</label>
-    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界08"> 西部医療圏</label>
-<div class="section-title" style="margin-top:10px; color:#555; font-size:11px;">▼ 施設種類・交通</div>
+    <div class="section-title">境界線・バス停留所・施設種類</div>
+<div class="section-title" style="margin-top:5px; color:#555; font-size:11px;">▼ バス停留所</div>
+    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="バス停留所"> バス停留所</label>
+<div class="section-title" style="margin-top:10px; color:#555; font-size:11px;">▼ 施設種類</div>
     <label class="layer-item"><input type="checkbox" class="facility-toggle" value="病院"> 病院</label>
     <label class="layer-item"><input type="checkbox" class="facility-toggle" value="診療所"> 診療所</label>
     <label class="layer-item"><input type="checkbox" class="facility-toggle" value="歯科"> 歯科</label>
@@ -308,8 +301,15 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <label class="layer-item"><input type="checkbox" class="facility-toggle" value="定期巡回・随時対応型訪問介護看護"> 定期巡回・随時対応型訪問介護看護</label>
     <label class="layer-item"><input type="checkbox" class="facility-toggle" value="看護小規模多機能型居宅介護"> 看護小規模多機能型居宅介護</label>
     <label class="layer-item"><input type="checkbox" class="facility-toggle" value="地域密着型通所介護"> 地域密着型通所介護</label>
-    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="バス停留所"> バス停留所</label>
-    <label class="layer-item"><input type="checkbox" class="facility-toggle" value="バス路線"> バス路線</label>
+<div class="section-title" style="margin-top:10px; color:#555; font-size:11px;">▼ 行政境界（町丁目）</div>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界01"> 賀茂医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界02"> 熱海伊東医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界03"> 駿東田方医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界04"> 富士医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界05"> 静岡医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界06"> 志太榛原医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界07"> 中東遠医療圏</label>
+    <label class="layer-item"><input type="checkbox" class="boundary-toggle" value="町丁目境界08"> 西部医療圏</label>
 
   </div>
   <div id="search-btn" class="circle-btn right-tool" title="医院等検索" onclick="togglePanel('search-panel')">🔍</div>
@@ -344,9 +344,8 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <span style="color:yellow;">♣</span>歯科
     <span style="color:green;">♠</span>薬局
     <span style="color:red;">■</span>助産院
-    <span style="color:brown;">●</span>介護
-    <span style="color:orange;">●</span>バス停留所
-    <span style="color:blue;">―</span>バス路線<br>
+    <span style="color:brown;">▲</span>介護
+    <span style="color:orange;">▲</span>バス停留所<br>
     【出典】<br>
     医療情報ネットのオープンデータ（厚生労働省）
     (2026年6月1日時点) <br>
@@ -358,7 +357,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <a href="https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">厚生労働省の介護ページ</a>
     &nbsp;&nbsp;&nbsp;
     <a href="https://www.mhlw.go.jp/chosakuken/index.html" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">同利用規約</a><br>
-    OpenStreetMap（バス停留所・バス路線データ）<br>
+    OpenStreetMap（バス停留所データ）<br>
     e-Stat国勢調査2020年<br>
     【災害ハザード】<br>
     洪水（想定最大規模）、土石流、急傾斜地の崩壊、地すべり、高潮、津波<br>
@@ -2450,22 +2449,6 @@ fetch("geo_22_バス停留所.geojson")
                     document.getElementById('search-input').blur();
                 }
             });
-        }
-    });
-})
-.catch(e => {});
-
-fetch("geo_22_バス路線.geojson")
-.then(res => res.json())
-.then(data => {
-    facilityLayers["バス路線"] = L.geoJSON(data, {
-        style: {
-            color: "#007bff",
-            weight: 3,
-            opacity: 0.8
-        },
-        onEachFeature: (f, l) => {
-            l.bindPopup(`<strong>${f.properties["内容"] || "バス路線"}</strong>`);
         }
     });
 })
