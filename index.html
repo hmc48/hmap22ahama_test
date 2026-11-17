@@ -504,6 +504,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
       <option value="2x2">2×2（4枚）</option>
       <option value="3x3" selected>3×3（9枚）</option>
       <option value="4x4">4×4（16枚）</option>
+      <option value="5x5">5×5（25枚）</option>
+      <option value="6x6">6×6（36枚）</option>
+      <option value="7x7">7×7（49枚）</option>
     </select>
     <div style="margin-top:8px;">用紙方向</div>
     <select id="print-orientation">
@@ -512,11 +515,12 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     </select>
     <button onclick="showPrintGrid()" style="background:#198754;color:white;border:0;">① 印刷範囲を表示</button>
     <button onclick="createPosterPrint()" style="background:#0d6efd;color:white;border:0;">② 分割印刷ページを作成</button>
-    <button onclick="createMapBook()" style="background:#6f42c1;color:white;border:0;">📖 地図ブックを作成（A4・索引付き）</button>
+    <button onclick="createMapBook()" style="background:#6f42c1;color:white;border:0;">📖 地図ブックを作成（索引付き）</button>
     <div class="print-help">
       現在の地図範囲を基準に、選択した用紙サイズのページへ分割します。<br>
-      先に地図を移動・拡大縮小して、印刷したい範囲を表示してください。<br>      「②」を押すと選択した枚数の印刷ページが表示されます。<br>
-      地図ブックはA4・左上から右方向、次の段へ番号を付け、索引と隣接ページ案内を付けます。
+      先に地図を移動・拡大縮小して、印刷したい範囲を表示してください。<br>
+      「②」を押すと選択した枚数の印刷ページが表示されます。<br>
+      地図ブックは選択した用紙サイズ（A4／A3）・左上から右方向、次の段へ番号を付け、索引と隣接ページ案内を付けます。
     </div>
   </div>
   <div id="print-grid-overlay"></div>
@@ -546,7 +550,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <span style="color:green;">♠</span>薬局
     <span style="color:red;">■</span>助産院
     <span style="color:brown;">●</span>介護
-    <span style="color:orange;">　▲</span>バス停 （OpenStreetMap 2026/09データ）<br>
+    <span style="color:orange;"> ▲</span>バス停 （OpenStreetMap 2026/09データ）<br>
     【学校関係】（国土地理院・国土交通省 2023年度版）<br>
     <span style="color:green;">★</span>小学校
     <span style="color:red;">♥</span>中学校
@@ -581,7 +585,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <span style="background-color: orange; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">📍</span> 住所検索(and検索)<br>
     <span style="background-color: blue; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🚗</span> 経路探索（自動車、徒歩）<br>
     <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">↩️</span> 初期化<br>
-    <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🖨️</span> 防災マップ印刷（分割印刷A4/A3 Max 4×4（16枚））<br> 
+    <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🖨️</span> 防災マップ印刷（分割印刷A4/A3 Max 7×7（49枚））<br> 
     <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">✏️</span> 線、四角形、多角形、円の描写、テキスト入力<br>
     <span style="background-color: yellow; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🖼️</span> 任意の画像、イラストの挿入<br>
     【利用規約・ご意見・ご感想・お問い合わせ】<br>
@@ -4277,7 +4281,7 @@ fetch("geo_22_専修学校.geojson")
                 const y2=data.sw.y + (data.totalH/data.rows)*(r+1);
                 const mid=L.point((x1+x2)/2,(y1+y2)/2);
 
-                // 各A4ページが全体の1ページ分だけを表示するようズームを調整
+                // 各ページが全体の1ページ分だけを表示するようズームを調整
                 const pagePixelW = data.totalW / data.cols;
                 const pagePixelH = data.totalH / data.rows;
                 const scaleX = pageCssW / pagePixelW;
@@ -4360,14 +4364,11 @@ fetch("geo_22_専修学校.geojson")
     }
 
     // ==========================================================
-    // 地図ブック（Web閲覧・A4印刷・ページ索引付き）
+    // 地図ブック（Web閲覧・A4 / A3印刷・ページ索引付き）
     // ページ番号は左上から右へ、次の段へ進む行優先方式。
     // ==========================================================
     async function createMapBook() {
-        const paper = document.getElementById('print-paper-size');
-        if (paper) paper.value = 'A4';
         const data = getPrintBounds();
-        data.paperSize = 'A4';
 
         const preview = document.getElementById('print-preview');
         const inner = document.getElementById('print-preview-inner');
@@ -4376,9 +4377,17 @@ fetch("geo_22_専修学校.geojson")
         printPreviewMaps = [];
 
         const totalPages = data.cols * data.rows;
-        const pageCssW = data.orientation === 'portrait' ? 793 : 1122;
-        const pageCssH = data.orientation === 'portrait' ? 1122 : 793;
-        const pageClass = 'print-page' + (data.orientation === 'portrait' ? ' portrait' : '');
+        const isA3 = data.paperSize === 'A3';
+        const isPortrait = data.orientation === 'portrait';
+        const pageCssW = isA3
+            ? (isPortrait ? 1122 : 1587)
+            : (isPortrait ? 793 : 1122);
+        const pageCssH = isA3
+            ? (isPortrait ? 1587 : 1122)
+            : (isPortrait ? 1122 : 793);
+        const pageClass = 'print-page'
+            + (isPortrait ? ' portrait' : '')
+            + (isA3 ? (isPortrait ? ' a3-portrait' : ' a3-landscape') : '');
 
         function goToPage(pageNo) {
             const target = document.getElementById(`book-page-${pageNo}`);
@@ -4400,11 +4409,11 @@ fetch("geo_22_専修学校.geojson")
         indexPage.id = 'book-index-page';
         const heading = document.createElement('div');
         heading.className = 'book-index-heading';
-        heading.textContent = '地図ブック　ページ索引';
+        heading.textContent = '地図ブック ページ索引';
         indexPage.appendChild(heading);
         const subtitle = document.createElement('div');
         subtitle.className = 'book-index-subtitle';
-        subtitle.textContent = `全${totalPages}ページ／A4／番号は左上から右へ、次の段へ進みます。各番号を選ぶと該当ページへ移動します。`;
+        subtitle.textContent = `全${totalPages}ページ／${data.paperSize}（${isPortrait ? '縦' : '横'}）／番号は左上から右へ、次の段へ進みます。各番号を選ぶと該当ページへ移動します。`;
         indexPage.appendChild(subtitle);
         const grid = document.createElement('div');
         grid.className = 'book-index-grid';
@@ -4422,7 +4431,7 @@ fetch("geo_22_専修学校.geojson")
         indexPage.appendChild(grid);
         const indexNote = document.createElement('div');
         indexNote.style.cssText = 'position:absolute;bottom:12px;left:34px;font-size:10px;color:#666;';
-        indexNote.textContent = '地図ブック索引';
+        indexNote.textContent = `地図ブック索引（${data.paperSize}・${isPortrait ? '縦' : '横'}）`;
         indexPage.appendChild(indexNote);
         inner.appendChild(indexPage);
 
@@ -4434,7 +4443,7 @@ fetch("geo_22_専修学校.geojson")
                 page.id = `book-page-${pageNo}`;
                 const title = document.createElement('div');
                 title.className = 'print-page-title';
-                title.textContent = `地図ブック　ページ ${pageNo} / ${totalPages}`;
+                title.textContent = `地図ブック ページ ${pageNo} / ${totalPages}`;
                 page.appendChild(title);
                 const back = document.createElement('button');
                 back.className = 'book-nav book-index-back';
@@ -4502,7 +4511,7 @@ fetch("geo_22_専修学校.geojson")
 
         preview.style.display = 'block';
         setTimeout(() => printPreviewMaps.forEach(m => m.invalidateSize()), 500);
-        alert('地図ブックを作成しました。先頭にページ索引があります。Webでは索引・上下左右の案内からページ移動できます。印刷する場合はA4・倍率100%で印刷してください。');
+        alert(`地図ブックを作成しました。先頭にページ索引があります。Webでは索引・上下左右の案内からページ移動できます。印刷する場合は${data.paperSize}・倍率100%で印刷してください。`);
     }
 
     function closePrintPreview() {
