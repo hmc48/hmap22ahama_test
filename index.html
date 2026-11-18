@@ -14,13 +14,10 @@
 <title>医療・介護施設マップ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- セキュリティ対策：不要な外部接続を制限。既存のインラインJavaScript／onclickを維持するため unsafe-inline は残しています。 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://*.gsi.go.jp https://*.openstreetmap.org https://hmc48.github.io; connect-src 'self' https://unpkg.com https://*.gsi.go.jp https://*.openstreetmap.org https://router.project-osrm.org https://nominatim.openstreetmap.org https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://unpkg.com https://*.gsi.go.jp https://*.openstreetmap.org https://hmc48.github.io; connect-src 'self' https://unpkg.com https://*.gsi.go.jp https://*.openstreetmap.org https://router.project-osrm.org https://nominatim.openstreetmap.org https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css">
+<link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.18.3/dist/leaflet-geoman.css">
 <style>
-/* ▼ここに1行追加するだけです */
-.leaflet-default-icon-path { background-image: url('https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png'); }
-
 body { margin:0; padding:0; overflow:hidden; font-family: sans-serif; }
 #map { height:100vh; width:100vw; z-index:1; }
 #map-title-bar {
@@ -597,20 +594,12 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+  <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.18.3/dist/leaflet-geoman.min.js"></script>
   <script>
     const colorMap = {"赤": "red", "青": "blue", "オレンジ": "orange", "ピンク": "deeppink", "緑": "green", "茶": "brown", "黄": "yellow"};
     const shapeMap = {"病院": "star", "診療所": "heart", "歯科": "club", "助産院": "square", "薬局": "spade", "バス停留所": "triangle", "小学校": "star", "中学校": "heart", "高校": "square", "中等教育学校": "circle", "高等専門学校": "circle", "短期大学": "circle", "大学": "circle", "幼稚園": "spade", "特別支援学校": "circle", "幼保連携型認定こども園": "club", "義務教育学校": "circle", "各種学校": "circle", "専修学校": "circle"};
 
     const myRenderer = L.canvas({ padding: 0.5 });
-    
-    // ★ ここを追加：Leaflet標準アイコンのパスを明示的に指定
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    });
 
     L.CustomMarker = L.CircleMarker.extend({
         _updatePath: function () {
