@@ -4289,6 +4289,9 @@ fetch("geo_22_専修学校.geojson")
             ? (isPortrait ? 1587 : 1122)
             : (isPortrait ? 1122 : 793);
 
+        // Leafletはdisplay:noneのコンテナでは正しいサイズを取得できないため、
+        // 索引・詳細ページを作成する前にプレビューを表示状態にする。
+        preview.style.display = 'block';
 
         // =====================================================
         // 先頭ページ：全体索引（分割区画と詳細ページ番号）
@@ -4488,12 +4491,20 @@ fetch("geo_22_専修学校.geojson")
             }
         }
 
-        preview.style.display='block';
+        // 表示後、Leafletに実際のページサイズを再取得させる。
         setTimeout(()=>{
-            printPreviewMaps.forEach(m=>m.invalidateSize());
-        },500);
+            printPreviewMaps.forEach(m=>{
+                try { m.invalidateSize(true); } catch(e) {}
+            });
+            // 索引は非表示時に作成しない。表示後に全体範囲へ再フィットさせる。
+            try {
+                indexMap.fitBounds(indexBounds, {padding: [12, 12]});
+            } catch(e) {
+                console.warn('索引地図の範囲調整に失敗', e);
+            }
+        },700);
 
-        alert('印刷用ページを作成しました。\n地図タイルの読み込みが完了するまで少し待ってから、ブラウザの「印刷」を実行してください。\n実際のサイズ（倍率100%）を選択してください。');
+        alert('索引ページ（1ページ目）と分割地図ページを作成しました。\n地図タイルの読み込みが完了するまで少し待ってから、ブラウザの「印刷」を実行してください。\n実際のサイズ（倍率100%）を選択してください。');
     }
 
     function closePrintPreview() {
