@@ -277,6 +277,25 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
   background:#dc3545; color:white; border:0; border-radius:5px; cursor:pointer;
   font-size:14px;
 }
+
+.print-index-number {
+   background: transparent;
+   border: none;
+   color: #c00000;
+   font-weight: bold;
+   font-size: 20px;
+   text-align: center;
+   line-height: 34px;
+ }
+ .print-index-number span {
+   display: inline-block;
+   min-width: 26px;
+   padding: 0 3px;
+   background: rgba(255,255,255,.88);
+   border: 1px solid #c00000;
+   border-radius: 3px;
+   box-sizing: border-box;
+ }
 .print-help { font-size:11px; color:#555; line-height:1.45; margin-top:6px; }
 @media print {
   @page A4Landscape { size: A4 landscape; margin: 0; }
@@ -497,7 +516,9 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <button onclick="createPosterPrint()" style="background:#0d6efd;color:white;border:0;">② 分割印刷ページを作成</button>
     <div class="print-help">
       現在の地図範囲を基準に、選択した用紙サイズのページへ分割します。<br>
-      地図を移動・拡大縮小して、印刷したい範囲を調整してください。<br>      「②」を押すと入力した縦×横の枚数分、印刷プレビューが表示されます。
+      地図を移動・拡大縮小して、印刷したい範囲を調整してください。<br>
+      「②」を押すと入力した縦×横の枚数分、印刷プレビューが表示されます。<br>
+      表示後、各ブラウザの印刷機能でPDF化や紙に印刷します。
     </div>
   </div>
   <div id="print-grid-overlay"></div>
@@ -4267,6 +4288,101 @@ fetch("geo_22_専修学校.geojson")
         const pageCssH = isA3
             ? (isPortrait ? 1587 : 1122)
             : (isPortrait ? 1122 : 793);
+
+
+        // =====================================================
+        // 先頭ページ：全体索引（分割区画と詳細ページ番号）
+        // =====================================================
+        const indexPage = document.createElement('div');
+        indexPage.className = 'print-page'
+            + (isPortrait ? ' portrait' : '')
+            + (isA3 ? (isPortrait ? ' a3-portrait' : ' a3-landscape') : '');
+        indexPage.style.aspectRatio = `${pageW}`;
+        const indexTitle = document.createElement('div');
+        indexTitle.className = 'print-page-title';
+        indexTitle.textContent = `索引・全体図 / 詳細地図 ${totalPages}枚`;
+        indexPage.appendChild(indexTitle);
+        const indexMapDiv = document.createElement('div');
+        indexMapDiv.className = 'print-page-map';
+        indexMapDiv.id = 'poster-index-map';
+        indexPage.appendChild(indexMapDiv);
+        inner.appendChild(indexPage);
+
+        const indexMap = L.map(indexMapDiv, {
+            zoomControl: false,
+            attributionControl: false,
+            preferCanvas: true,
+            dragging: false,
+            scrollWheelZoom: false,
+            doubleClickZoom: false,
+            boxZoom: false,
+            keyboard: false,
+            touchZoom: false
+        });
+        indexMap.__printRenderer = L.canvas({ padding: 0.5 });
+        indexMap.createPane('hazardPane');
+        indexMap.getPane('hazardPane').style.zIndex = 300;
+        indexMap.getPane('hazardPane').style.pointerEvents = 'none';
+        addPrintBaseLayer(indexMap);
+
+        const indexSW = map.unproject(data.sw, data.zoom);
+        const indexNE = map.unproject(data.ne, data.zoom);
+        const indexBounds = L.latLngBounds(indexSW, indexNE);
+        indexMap.fitBounds(indexBounds, { padding: [12, 12] });
+
+        // 現在表示中の施設・学校・バス停・境界線を索引にも複製
+        document.querySelectorAll('.facility-toggle:checked,.bus-toggle:checked,.school-toggle:checked,.boundary-toggle:checked').forEach(cb => {
+            const layer = (facilityLayers[cb.value] || boundaryLayers[cb.value]);
+            if (layer) cloneLayerForPrint(layer, indexMap);
+        });
+        // 現在の地図上の描画物、テキスト、画像も索引に複製
+        map.eachLayer(layer => {
+            if (layer instanceof L.Polyline || layer instanceof L.Polygon || layer instanceof L.Circle) {
+                if (layer.options?.pane !== 'hazardPane' && layer.options?.pane !== 'boundaryPane') {
+                    try { L.geoJSON(layer.toGeoJSON()).addTo(indexMap); } catch(e) {}
+                }
+            }
+            if (layer instanceof L.Marker) {
+                try {
+                    const el = layer.getElement && layer.getElement();
+                    const isCustomText = !!((el && el.classList && el.classList.contains('custom-text-marker')) || (el && el.querySelector && el.querySelector('.custom-text-marker')) || (layer.options && layer.options.icon && layer.options.icon.options && String(layer.options.icon.options.className || '').includes('custom-text-marker')));
+                    const isCustomImage = !!(el && el.querySelector && el.querySelector('.map-added-image'));
+                    if (isCustomText || isCustomImage) cloneLayerForPrint(layer, indexMap);
+                } catch(e) {}
+            }
+        });
+
+        // 索引の赤い分割線と、詳細ページ番号を表示（左上から右へ、次の段へ）
+        for (let ir = 0; ir < data.rows; ir++) {
+            for (let ic = 0; ic < data.cols; ic++) {
+                const pageNo = ir * data.cols + ic + 1;
+                const px1 = data.sw.x + (data.totalW / data.cols) * ic;
+                const px2 = data.sw.x + (data.totalW / data.cols) * (ic + 1);
+                const py1 = data.sw.y + (data.totalH / data.rows) * ir;
+                const py2 = data.sw.y + (data.totalH / data.rows) * (ir + 1);
+                const cellBounds = L.latLngBounds(
+                    map.unproject(L.point(px2, py2), data.zoom),
+                    map.unproject(L.point(px1, py1), data.zoom)
+                );
+                L.rectangle(cellBounds, {
+                    color: '#d00000',
+                    weight: 2,
+                    opacity: 0.9,
+                    fill: false,
+                    interactive: false
+                }).addTo(indexMap);
+                const label = L.marker(cellBounds.getCenter(), {
+                    interactive: false,
+                    icon: L.divIcon({
+                        className: 'print-index-number',
+                        html: `<span>${pageNo}</span>`,
+                        iconSize: [34, 34],
+                        iconAnchor: [17, 17]
+                    })
+                }).addTo(indexMap);
+            }
+        }
+        printPreviewMaps.push(indexMap);
 
         for(let r=0;r<data.rows;r++){
             for(let c=0;c<data.cols;c++){
