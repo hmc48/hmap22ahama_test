@@ -473,10 +473,10 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
   
   <div id="route-btn" class="circle-btn right-tool" title="経路検索" onclick="toggleRouteMode()">🚗</div>
   <div id="reload-btn" class="circle-btn right-tool" title="初期化" onclick="confirmReload()">↩️</div>
-  <div id="print-map-btn" class="circle-btn right-tool" title="防災マップ印刷" onclick="togglePrintPanel()">🖨️</div>
+  <div id="print-map-btn" class="circle-btn right-tool" title="マップ印刷" onclick="togglePrintPanel()">🖨️</div>
   <div id="print-panel">
     <span class="close-x" onclick="togglePrintPanel()">×</span>
-    <div class="section-title">防災マップ印刷</div>
+    <div class="section-title">マップ印刷</div>
     <div style="margin-top:8px;">用紙サイズ</div>
     <select id="print-paper-size">
       <option value="A4" selected>A4</option>
@@ -497,7 +497,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <button onclick="createPosterPrint()" style="background:#0d6efd;color:white;border:0;">② 分割印刷ページを作成</button>
     <div class="print-help">
       現在の地図範囲を基準に、選択した用紙サイズのページへ分割します。<br>
-      先に地図を移動・拡大縮小して、印刷したい範囲を表示してください。<br>      「②」を押すと入力した縦×横の枚数分、印刷ページが表示されます。
+      地図を移動・拡大縮小して、印刷したい範囲を調整してください。<br>      「②」を押すと入力した縦×横の枚数分、印刷プレビューが表示されます。
     </div>
   </div>
   <div id="print-grid-overlay"></div>
@@ -4022,7 +4022,7 @@ fetch("geo_22_専修学校.geojson")
             `${paperSize}${document.getElementById('print-orientation').value === 'portrait' ? '縦' : '横'}`;
 
         alert(
-            `${orientationText}・${data.cols}×${data.rows} の実際の印刷範囲を表示しました。
+            `${orientationText}・${data.rows}×${data.cols} の実際の印刷範囲を表示しました。
 ` +
             `赤枠は「② 分割印刷ページを作成」と同じ範囲です。`
         );
