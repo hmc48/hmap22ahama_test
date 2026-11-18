@@ -236,7 +236,6 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
 #print-map-btn {
   top: 290px; right: 15px; background:#198754; color:white;
 }
-#map-book-btn { top: 340px; right:15px; background:#6f42c1; color:white; }
 #print-panel {
   display:none; position:fixed; top:55px; right:65px; width:260px;
   background:white; padding:12px; border-radius:8px; z-index:6000;
@@ -279,21 +278,6 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
   font-size:14px;
 }
 .print-help { font-size:11px; color:#555; line-height:1.45; margin-top:6px; }
-.book-index-page { padding:28px 34px; box-sizing:border-box; }
-.book-index-heading { font-size:24px; font-weight:bold; margin:8px 0 6px; }
-.book-index-subtitle { font-size:12px; color:#555; margin-bottom:18px; }
-.book-index-grid { display:grid; grid-template-columns:repeat(var(--book-cols),1fr); gap:9px; }
-.book-index-cell { border:1px solid #777; min-height:65px; padding:8px; box-sizing:border-box; cursor:pointer; background:#f8f9fa; }
-.book-index-cell strong { display:block; font-size:18px; margin-bottom:4px; }
-.book-index-cell span { font-size:11px; color:#444; }
-.book-nav { position:absolute; z-index:1200; background:rgba(255,255,255,.94); color:#174a8b; border:1px solid #174a8b; border-radius:4px; padding:4px 8px; font-size:12px; font-weight:bold; cursor:pointer; }
-.book-nav-up { top:8px; left:50%; transform:translateX(-50%); }
-.book-nav-down { bottom:8px; left:50%; transform:translateX(-50%); }
-.book-nav-left { left:8px; top:50%; transform:translateY(-50%); }
-.book-nav-right { right:8px; top:50%; transform:translateY(-50%); }
-.book-page-link { color:#0645ad; text-decoration:underline; cursor:pointer; }
-.book-index-back { position:absolute; right:10px; top:8px; z-index:1200; }
-@media print { .book-nav { cursor:default; } }
 @media print {
   @page A4Landscape { size: A4 landscape; margin: 0; }
   @page A4Portrait { size: A4 portrait; margin: 0; }
@@ -492,33 +476,28 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
   <div id="print-map-btn" class="circle-btn right-tool" title="防災マップ印刷" onclick="togglePrintPanel()">🖨️</div>
   <div id="print-panel">
     <span class="close-x" onclick="togglePrintPanel()">×</span>
-    <div class="section-title">マップ印刷（防災など）</div>
+    <div class="section-title">防災マップ印刷</div>
     <div style="margin-top:8px;">用紙サイズ</div>
     <select id="print-paper-size">
       <option value="A4" selected>A4</option>
       <option value="A3">A3</option>
     </select>
-    <div style="margin-top:8px;">分割数</div>
-    <select id="print-grid-size">
-      <option value="2x2">2×2（4枚）</option>
-      <option value="3x3" selected>3×3（9枚）</option>
-      <option value="4x4">4×4（16枚）</option>
-      <option value="5x5">5×5（25枚）</option>
-      <option value="6x6">6×6（36枚）</option>
-      <option value="7x7">7×7（49枚）</option>
-    </select>
+    <div style="margin-top:8px;">分割数（縦・横それぞれ1～30）</div>
+    <div style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+      <label style="flex:1;">縦（行）<input type="number" id="print-grid-rows" value="3" min="1" max="30" step="1" style="width:100%;box-sizing:border-box;padding:7px;"></label>
+      <label style="flex:1;">横（列）<input type="number" id="print-grid-cols" value="3" min="1" max="30" step="1" style="width:100%;box-sizing:border-box;padding:7px;"></label>
+    </div>
+    <div id="print-grid-count" style="margin-top:5px; font-weight:bold;">合計：9枚</div>
     <div style="margin-top:8px;">用紙方向</div>
     <select id="print-orientation">
       <option value="landscape" selected>横</option>
       <option value="portrait">縦</option>
     </select>
-    <button onclick="showPrintGrid()" style="background:#198754;color:white;border:0;">① 印刷範囲枠の表示</button>
-    <button onclick="createPosterPrint()" style="background:#0d6efd;color:white;border:0;">② 分割印刷ページの表示</button>
-    <button onclick="createMapBook()" style="background:#6f42c1;color:white;border:0;">③ 地図ブック（索引付き）の表示</button>
+    <button onclick="showPrintGrid()" style="background:#198754;color:white;border:0;">① 印刷範囲を表示</button>
+    <button onclick="createPosterPrint()" style="background:#0d6efd;color:white;border:0;">② 分割印刷ページを作成</button>
     <div class="print-help">
-      ① 表示後、印刷範囲の調整（移動、拡大、縮小）<br>
-      ② 分割印刷（シンプル版）の印刷プレビュー<br>
-      ③ 地図ブック（索引付き）の印刷プレビュー
+      現在の地図範囲を基準に、選択した用紙サイズのページへ分割します。<br>
+      先に地図を移動・拡大縮小して、印刷したい範囲を表示してください。<br>      「②」を押すと入力した縦×横の枚数分、印刷ページが表示されます。
     </div>
   </div>
   <div id="print-grid-overlay"></div>
@@ -548,7 +527,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <span style="color:green;">♠</span>薬局
     <span style="color:red;">■</span>助産院
     <span style="color:brown;">●</span>介護
-    <span style="color:orange;"> ▲</span>バス停 （OpenStreetMap 2026/09データ）<br>
+    <span style="color:orange;">　▲</span>バス停 （OpenStreetMap 2026/09データ）<br>
     【学校関係】（国土地理院・国土交通省 2023年度版）<br>
     <span style="color:green;">★</span>小学校
     <span style="color:red;">♥</span>中学校
@@ -583,7 +562,7 @@ button.menu-sub-btn { flex: 1; padding: 8px; font-size: 11px; cursor: pointer; }
     <span style="background-color: orange; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">📍</span> 住所検索(and検索)<br>
     <span style="background-color: blue; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🚗</span> 経路探索（自動車、徒歩）<br>
     <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">↩️</span> 初期化<br>
-    <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🖨️</span> 防災マップ印刷（分割印刷A4/A3 Max 7×7（49枚））<br> 
+    <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🖨️</span> 防災マップ印刷（分割印刷A4/A3 最大30×30（900枚））<br> 
     <span style="background-color: gray; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">✏️</span> 線、四角形、多角形、円の描写、テキスト入力<br>
     <span style="background-color: yellow; border-radius: 50%; padding: 10px; display: inline-flex; align-items: center; justify-content: center; width: 5px; height: 5px;">🖼️</span> 任意の画像、イラストの挿入<br>
     【利用規約・ご意見・ご感想・お問い合わせ】<br>
@@ -3931,12 +3910,39 @@ fetch("geo_22_専修学校.geojson")
     }
 
     function getPrintGrid() {
-        const v = document.getElementById('print-grid-size').value.split('x');
-        return { cols: parseInt(v[0]), rows: parseInt(v[1]) };
+        const rowsInput = document.getElementById('print-grid-rows');
+        const colsInput = document.getElementById('print-grid-cols');
+        const rows = Number(rowsInput.value);
+        const cols = Number(colsInput.value);
+        if (!Number.isInteger(rows) || rows < 1 || rows > 30 ||
+            !Number.isInteger(cols) || cols < 1 || cols > 30) {
+            alert('縦・横の分割数は、それぞれ1～30の整数で入力してください。');
+            return null;
+        }
+        return { cols, rows };
     }
+
+    function updatePrintGridCount() {
+        const rows = Number(document.getElementById('print-grid-rows').value);
+        const cols = Number(document.getElementById('print-grid-cols').value);
+        const label = document.getElementById('print-grid-count');
+        if (Number.isInteger(rows) && rows >= 1 && rows <= 30 &&
+            Number.isInteger(cols) && cols >= 1 && cols <= 30) {
+            const total = rows * cols;
+            label.textContent = `合計：${total}枚`;
+            label.style.color = total >= 50 ? '#c00' : '';
+        } else {
+            label.textContent = '縦・横は1～30の整数で入力してください';
+            label.style.color = '#c00';
+        }
+    }
+    document.getElementById('print-grid-rows').addEventListener('input', updatePrintGridCount);
+    document.getElementById('print-grid-cols').addEventListener('input', updatePrintGridCount);
 
     function showPrintGrid() {
         const overlay = document.getElementById('print-grid-overlay');
+        const grid = getPrintGrid();
+        if (!grid) return;
         const data = getPrintBounds();
 
         overlay.innerHTML = '';
@@ -4228,6 +4234,19 @@ fetch("geo_22_専修学校.geojson")
     }
 
     async function createPosterPrint() {
+        const grid = getPrintGrid();
+        if (!grid) return;
+        const requestedPages = grid.rows * grid.cols;
+        if (requestedPages >= 50) {
+            const proceed = confirm(
+                `分割数は${grid.rows}×${grid.cols}、合計${requestedPages}枚です。
+` +
+                `50枚以上の場合、地図ページの作成に時間がかかる場合があります。
+` +
+                `続行しますか？`
+            );
+            if (!proceed) return;
+        }
         // 「① 印刷範囲を表示」で表示した境界線は残す。
         // 分割印刷ページの作成時にも、同じ範囲を確認できるようにする。
         const data = getPrintBounds();
@@ -4265,7 +4284,7 @@ fetch("geo_22_専修学校.geojson")
                 const mm = String(today.getMonth() + 1).padStart(2, '0');
                 const dd = String(today.getDate()).padStart(2, '0');
                 const formattedDate = `${yyyy}/${mm}/${dd}`;
-                title.textContent=`Page:${pageNo} / ${totalPages}`;
+                title.textContent=`作成日: ${formattedDate} Page:${pageNo} / ${totalPages}`;
                 page.appendChild(title);
                 const mapDiv=document.createElement('div');
                 mapDiv.className='print-page-map';
@@ -4279,7 +4298,7 @@ fetch("geo_22_専修学校.geojson")
                 const y2=data.sw.y + (data.totalH/data.rows)*(r+1);
                 const mid=L.point((x1+x2)/2,(y1+y2)/2);
 
-                // 各ページが全体の1ページ分だけを表示するようズームを調整
+                // 各A4ページが全体の1ページ分だけを表示するようズームを調整
                 const pagePixelW = data.totalW / data.cols;
                 const pagePixelH = data.totalH / data.rows;
                 const scaleX = pageCssW / pagePixelW;
@@ -4359,157 +4378,6 @@ fetch("geo_22_専修学校.geojson")
         },500);
 
         alert('印刷用ページを作成しました。\n地図タイルの読み込みが完了するまで少し待ってから、ブラウザの「印刷」を実行してください。\n実際のサイズ（倍率100%）を選択してください。');
-    }
-
-    // ==========================================================
-    // 地図ブック（Web閲覧・A4 / A3印刷・ページ索引付き）
-    // ページ番号は左上から右へ、次の段へ進む行優先方式。
-    // ==========================================================
-    async function createMapBook() {
-        const data = getPrintBounds();
-
-        const preview = document.getElementById('print-preview');
-        const inner = document.getElementById('print-preview-inner');
-        inner.innerHTML = '';
-        printPreviewMaps.forEach(m => { try { m.remove(); } catch(e){} });
-        printPreviewMaps = [];
-
-        const totalPages = data.cols * data.rows;
-        const isA3 = data.paperSize === 'A3';
-        const isPortrait = data.orientation === 'portrait';
-        const pageCssW = isA3
-            ? (isPortrait ? 1122 : 1587)
-            : (isPortrait ? 793 : 1122);
-        const pageCssH = isA3
-            ? (isPortrait ? 1587 : 1122)
-            : (isPortrait ? 1122 : 793);
-        const pageClass = 'print-page'
-            + (isPortrait ? ' portrait' : '')
-            + (isA3 ? (isPortrait ? ' a3-portrait' : ' a3-landscape') : '');
-
-        function goToPage(pageNo) {
-            const target = document.getElementById(`book-page-${pageNo}`);
-            if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
-        }
-        function addNav(page, label, direction, targetPage) {
-            const el = document.createElement('button');
-            el.className = `book-nav book-nav-${direction}`;
-            el.type = 'button';
-            el.textContent = `${label}：${targetPage ? 'P.' + targetPage : 'なし'}`;
-            if (targetPage) el.onclick = () => goToPage(targetPage);
-            else { el.disabled = true; el.style.opacity = '.35'; }
-            page.appendChild(el);
-        }
-
-        // 先頭にページ索引を作成。索引の番号は地図ページ番号と一致。
-        const indexPage = document.createElement('div');
-        indexPage.className = pageClass + ' book-index-page';
-        indexPage.id = 'book-index-page';
-        const heading = document.createElement('div');
-        heading.className = 'book-index-heading';
-        heading.textContent = '地図ブック ページ索引';
-        indexPage.appendChild(heading);
-        const subtitle = document.createElement('div');
-        subtitle.className = 'book-index-subtitle';
-        subtitle.textContent = `全${totalPages}ページ／${data.paperSize}（${isPortrait ? '縦' : '横'}）／番号は左上から右へ、次の段へ進みます。各番号を選ぶと該当ページへ移動します。`;
-        indexPage.appendChild(subtitle);
-        const grid = document.createElement('div');
-        grid.className = 'book-index-grid';
-        grid.style.setProperty('--book-cols', data.cols);
-        for (let r = 0; r < data.rows; r++) {
-            for (let c = 0; c < data.cols; c++) {
-                const pageNo = r * data.cols + c + 1;
-                const cell = document.createElement('div');
-                cell.className = 'book-index-cell';
-                cell.innerHTML = `<strong>ページ ${pageNo}</strong><span>段 ${r+1} ・ 列 ${c+1}</span>`;
-                cell.onclick = () => goToPage(pageNo);
-                grid.appendChild(cell);
-            }
-        }
-        indexPage.appendChild(grid);
-        const indexNote = document.createElement('div');
-        indexNote.style.cssText = 'position:absolute;bottom:12px;left:34px;font-size:10px;color:#666;';
-        indexNote.textContent = `地図ブック索引（${data.paperSize}・${isPortrait ? '縦' : '横'}）`;
-        indexPage.appendChild(indexNote);
-        inner.appendChild(indexPage);
-
-        for (let r = 0; r < data.rows; r++) {
-            for (let c = 0; c < data.cols; c++) {
-                const pageNo = r * data.cols + c + 1;
-                const page = document.createElement('div');
-                page.className = pageClass;
-                page.id = `book-page-${pageNo}`;
-                const title = document.createElement('div');
-                title.className = 'print-page-title';
-                title.textContent = `Page: ${pageNo} / ${totalPages}`;
-                page.appendChild(title);
-                const back = document.createElement('button');
-                back.className = 'book-nav book-index-back';
-                back.type = 'button';
-                back.textContent = '索引へ';
-                back.onclick = () => document.getElementById('book-index-page')?.scrollIntoView({behavior:'smooth',block:'start'});
-                page.appendChild(back);
-
-                const up = r > 0 ? pageNo - data.cols : null;
-                const down = r < data.rows - 1 ? pageNo + data.cols : null;
-                const left = c > 0 ? pageNo - 1 : null;
-                const right = c < data.cols - 1 ? pageNo + 1 : null;
-                addNav(page, '↑ 上', 'up', up);
-                addNav(page, '↓ 下', 'down', down);
-                addNav(page, '← 左', 'left', left);
-                addNav(page, '右 →', 'right', right);
-
-                const mapDiv = document.createElement('div');
-                mapDiv.className = 'print-page-map';
-                mapDiv.id = `book-map-${pageNo}`;
-                page.appendChild(mapDiv);
-                inner.appendChild(page);
-
-                const x1 = data.sw.x + (data.totalW / data.cols) * c;
-                const x2 = data.sw.x + (data.totalW / data.cols) * (c + 1);
-                const y1 = data.sw.y + (data.totalH / data.rows) * r;
-                const y2 = data.sw.y + (data.totalH / data.rows) * (r + 1);
-                const mid = L.point((x1 + x2) / 2, (y1 + y2) / 2);
-                const pagePixelW = data.totalW / data.cols;
-                const pagePixelH = data.totalH / data.rows;
-                const pageZoom = data.zoom + Math.log2(Math.min(pageCssW / pagePixelW, pageCssH / pagePixelH));
-                const pm = L.map(mapDiv, {
-                    center: map.unproject(mid, data.zoom), zoom: pageZoom,
-                    zoomSnap:0, zoomDelta:0.1, zoomControl:false, attributionControl:false,
-                    preferCanvas:true, dragging:false, scrollWheelZoom:false,
-                    doubleClickZoom:false, boxZoom:false, keyboard:false, touchZoom:false
-                });
-                pm.__printRenderer = L.canvas({padding:0.5});
-                pm.createPane('hazardPane');
-                pm.getPane('hazardPane').style.zIndex = 300;
-                pm.getPane('hazardPane').style.pointerEvents = 'none';
-                addPrintBaseLayer(pm);
-                document.querySelectorAll('.facility-toggle:checked,.bus-toggle:checked,.school-toggle:checked,.boundary-toggle:checked').forEach(cb => {
-                    const layer = facilityLayers[cb.value] || boundaryLayers[cb.value];
-                    if (layer) cloneLayerForPrint(layer, pm);
-                });
-                map.eachLayer(layer => {
-                    if (layer instanceof L.Polyline || layer instanceof L.Polygon || layer instanceof L.Circle) {
-                        if (layer.options?.pane !== 'hazardPane' && layer.options?.pane !== 'boundaryPane') {
-                            try { L.geoJSON(layer.toGeoJSON()).addTo(pm); } catch(e) {}
-                        }
-                    }
-                    if (layer instanceof L.Marker) {
-                        try {
-                            const el = layer.getElement && layer.getElement();
-                            const isText = !!((el && el.classList && el.classList.contains('custom-text-marker')) || (el && el.querySelector && el.querySelector('.custom-text-marker')) || (layer.options && layer.options.icon && layer.options.icon.options && String(layer.options.icon.options.className || '').includes('custom-text-marker')));
-                            const isImage = !!(el && el.querySelector && el.querySelector('.map-added-image'));
-                            if (isText || isImage) cloneLayerForPrint(layer, pm);
-                        } catch(e) { console.warn('地図ブックのテキスト・画像複製失敗', e); }
-                    }
-                });
-                printPreviewMaps.push(pm);
-            }
-        }
-
-        preview.style.display = 'block';
-        setTimeout(() => printPreviewMaps.forEach(m => m.invalidateSize()), 500);
-        alert(`地図ブックを作成しました。先頭にページ索引があります。Webでは索引・上下左右の案内からページ移動できます。印刷する場合は${data.paperSize}・倍率100%で印刷してください。`);
     }
 
     function closePrintPreview() {
