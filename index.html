@@ -4284,7 +4284,7 @@ fetch("geo_22_専修学校.geojson")
                 const mm = String(today.getMonth() + 1).padStart(2, '0');
                 const dd = String(today.getDate()).padStart(2, '0');
                 const formattedDate = `${yyyy}/${mm}/${dd}`;
-                title.textContent=`作成日: ${formattedDate} Page:${pageNo} / ${totalPages}`;
+                title.textContent=`Page:${pageNo} / ${totalPages}`;
                 page.appendChild(title);
                 const mapDiv=document.createElement('div');
                 mapDiv.className='print-page-map';
